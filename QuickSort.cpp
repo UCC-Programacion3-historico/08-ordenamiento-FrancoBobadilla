@@ -1,24 +1,25 @@
 #include "QuickSort.h"
 
-template <class T>
-void quickSort(T *vect, unsigned long inicio, unsigned long fin){
-    if(inicio == fin)return;
-    T pivote = vect[inicio];
-    unsigned long inf = inicio;
-    unsigned long sup = fin;
-    T tmp;
-    while(inf < sup){
-        while(vect[inf] < pivote && inf < fin)
-            inf++;
-        while(vect[sup] > pivote && sup > inicio)
-            sup--;
-        if(inf < sup){
-            tmp = vect[inf];
-            vect[inf] = vect[sup];
-            vect[sup] = tmp;
+template<class T>
+void quickSort(T *vect, unsigned long inicio, unsigned long fin) {
+    if (fin>inicio) {
+        unsigned long abajo = inicio;
+        unsigned long arriba = fin;
+        while (abajo < arriba) {
+            while (abajo <= fin && vect[abajo] <= vect[inicio])
+                abajo++;
+            while (arriba > inicio && vect[arriba] > vect[inicio])
+                arriba--;
+            if (abajo < arriba) {
+                T tmp = vect[abajo];
+                vect[abajo] = vect[arriba];
+                vect[arriba] = tmp;
+            }
         }
+        T tmp = vect[inicio];
+        vect[inicio] = vect[arriba];
+        vect[arriba] = tmp;
+        quickSort(vect, inicio, arriba - 1);
+        quickSort(vect, arriba + 1, fin);
     }
-    if(sup == 0)return;
-    quickSort(vect, inicio, sup - 1);
-    quickSort(vect, sup - 1, fin);
 }

@@ -2,11 +2,11 @@
 
 template<class T>
 void bubbleSort(T *vect, unsigned long tamanio) {
-    bool intercambios = true;
     T comodin;
-    for (int i = 0; i < tamanio && intercambios; ++i) {
+    bool intercambios = true;
+    for (int i = 1; i < tamanio && intercambios; ++i) {
         intercambios = false;
-        for (int j = 0; j <= tamanio - i; ++j)
+        for (int j = 0; j < tamanio - i; ++j)
             if (vect[j] > vect[j + 1]) {
                 intercambios = true;
                 comodin = vect[j];

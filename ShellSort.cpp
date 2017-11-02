@@ -1,20 +1,25 @@
 #include "ShellSort.h"
+#include <iostream>
+#include <math.h>
+
+using namespace std;
 
 template<class T>
 void shellSort(T *vect, unsigned long tamanio) {
-    for (int i = 2; i < tamanio; ++i) {
-        unsigned long incremento = tamanio / i;
-        for (int j = 0; j < i; ++j) {
+    unsigned long incr = tamanio;
+    while (incr >= 2) {
+        incr = sqrt(incr);
+        for (int i = 0; i < incr; ++i) {
             T comodin;
             bool intercambios = true;
-            for (int k = 0; k < j && intercambios; ++k) {
+            for (int j = incr; j < tamanio && intercambios; j += incr) {
                 intercambios = false;
-                for (int l = 0; l <= j - k; ++l)
-                    if (vect[l] > vect[l + incremento]) {
+                for (int k = i; k < tamanio - j; k += incr)
+                    if (vect[k] > vect[k + incr]) {
                         intercambios = true;
-                        comodin = vect[l];
-                        vect[l] = vect[l + incremento];
-                        vect[l + incremento] = comodin;
+                        comodin = vect[k];
+                        vect[k] = vect[k + incr];
+                        vect[k + incr] = comodin;
                     }
             }
         }
